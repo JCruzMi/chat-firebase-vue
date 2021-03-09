@@ -1,3 +1,9 @@
+# Demo
+
+https://chatfirebase-vue.netlify.app
+
+### Solo visible, no deja ingresar con google
+
 # chat-firebase-vue
 
 ## Project setup
