@@ -1,18 +1,21 @@
 <template>
   <div class="message">
-    <div class="flex" :class="sender ? 'flex-row-reverse' : ''">
+    <div :class="sender ? 'flex-direction-row-reverse' : ''">
       <div class="container">
-          <div class="row">
-            <div class="col-1">
-              <Avatar class="avatar mt-5" :src="photoUrl" />
+        <div class="row">
+          <div v-if="!sender" class="col-auto">
+            <Avatar class="avatar" :src="photoUrl"/>
+          </div>
+          <div class="col">
+            <div :class="sender ? 'shadow p-2 mb-5 bg-info rounded' : 'shadow p-3 mb-5 bg-white rounded'">
+              <slot />
+              <br>
+              <span v-if="!sender">Send by: {{ name }}</span>
+              <p>{{createdAt}}</p>
             </div>
-            <div class="col">
-              <div class="shadow-sm p-2 m-4 rounded" :class="sender ? 'bg-green-800' : 'bg-gray-700'">
-                <slot />
-                <br>
-                <span v-if="!sender">Send by: {{ name }}</span>
-                <p>{{createdAt}}</p>
-            </div>
+          </div>
+          <div v-if="sender" class="col-auto">
+            <Avatar class="avatar" :src="photoUrl"/>
           </div>
         </div>
       </div>
@@ -34,18 +37,18 @@ export default {
 </script>
 
 <style scoped>
+
 .message{
+  margin-top: 20px;
   display: flexbox;
-  margin-bottom: -20px;
+  margin-bottom: -30px;
 }
-.shadow-sm{
-  display: flexbox;
-  background-color: #ecf2f3;
-}
+
 .avatar{
-  display: inline-block;
-  margin-right: 10px;
+  width: 40px;
+  height: 40px;
 }
+
 
 p,span{
   margin-top: 5px;

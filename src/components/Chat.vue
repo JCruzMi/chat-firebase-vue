@@ -1,31 +1,33 @@
 <template>
+  <div v-if="isLogin" class="container mt-20">
+    <button class="btn btn-dark"> {- </button>
+    <img :src="user.photoURL">
+    <span>{{user.displayName}}</span>
+  </div>
   <div class="overflow-auto">
     <div class="container-sm mt-20">
-      <div class="mx-5">
-        <Message
-          v-for="{ id, text, userPhotoURL, userName, userId, createdAt } in messages"
-          :key="id"
-          :name="userName"
-          :photo-url="userPhotoURL"
-          :sender="userId === user?.uid"
-          :createdAt="createdAt.toDate()"
-        >
-          {{ text }}
-        </Message>
-      </div>
+      <Message
+        v-for="{ id, text, userPhotoURL, userName, userId, createdAt } in messages"
+        :key="id"
+        :name="userName"
+        :photo-url="userPhotoURL"
+        :sender="userId === user?.uid"
+        :createdAt="createdAt.toDate()"
+      >
+        {{ text }}
+      </Message>
     </div>
   </div>
-    <div class="container">
-      <div class="container-sm">
-        <form v-if="isLogin" @submit.prevent="send">
-          <input v-model="message" placeholder="Message" required />
-          <br>
-          <button class="btn btn-secondary" type="submit">
-            Send
-          </button>
-        </form>
-      </div>
-    </div>
+  
+  <div class="container-sm mt-20">
+    <form v-if="isLogin" @submit.prevent="send">
+      <input v-model="message" placeholder="Message" required />
+      <button class="btn btn-secondary" type="submit">
+        Send
+      </button>
+    </form>
+  </div>
+  
   
 </template>
 <script>
@@ -52,36 +54,46 @@ export default {
       sendMessage(message.value)
       message.value = ''
     }
+    console.log(user)
     return { user, isLogin, messages, bottom, message, send }
   }
 }
 </script>
 
 <style scoped>
+.container{
+  background-color: white;
+  border-radius: 10px;
+}
+
 .overflow-auto .container-sm{
-  height: 700px;
+  height: auto;
+  max-height: 680px;
+  width: auto;
+  text-align: left;
   overflow-y: auto;
   overflow: auto;
-  scroll-behavior: smooth;
   background-color: #E6E6E6;
   border-radius: 5px;
 
 }
-.container{
-  align-items: center;
+.container-sm{
+  background-color: white;
+  border-radius: 10px;
   text-align: center;
-  margin-top: 10px;
+  width: auto;
   margin-bottom: 10px;
-  border-radius: 5px;
 }
 
 input{
-  height: 40px;
-  width: 90%;
-  border-radius: 5px;
+  width: auto;
+  height: auto;
+  border: 0px;
 }
 
 .btn{
-  margin-top: 10px;
+  width: auto;
+  height: auto;
+  margin-left: 10px;
 }
 </style>
